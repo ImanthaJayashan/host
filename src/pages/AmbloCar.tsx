@@ -23,8 +23,6 @@ const AmbloCar: React.FC = () => {
   const [gameWon, setGameWon] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [level, setLevel] = useState(1);
-  const [showLevelComplete, setShowLevelComplete] = useState(false);
-  const [audioInitialized, setAudioInitialized] = useState(false);
 
   const sessionStartTime = useRef(Date.now());
   const failsCount = useRef(0);
@@ -204,7 +202,6 @@ const AmbloCar: React.FC = () => {
     } else {
       audioRef.current.play().catch((e) => console.log("Audio play failed:", e));
       setMusicPlaying(true);
-      setAudioInitialized(true);
     }
   };
 
@@ -334,7 +331,6 @@ const AmbloCar: React.FC = () => {
 
       if (man.current.y < 100) {
         setGameWon(true);
-        setShowLevelComplete(true);
         setScore((s) => s + 100 * level); // Bonus points based on level
       }
 
@@ -421,7 +417,6 @@ const AmbloCar: React.FC = () => {
     setTime(0);
     setGameOver(false);
     setGameWon(false);
-    setShowLevelComplete(false);
     setPaused(false);
     setLevel(1);
     vehicles.current = getLevelConfig(1);
@@ -436,7 +431,6 @@ const AmbloCar: React.FC = () => {
     const newLevel = level + 1;
     setLevel(newLevel);
     setGameWon(false);
-    setShowLevelComplete(false);
     setPaused(false);
     vehicles.current = getLevelConfig(newLevel);
     man.current.y = size.current.h - 80;

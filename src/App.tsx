@@ -15,7 +15,7 @@ import AmbloCar from "./pages/AmbloCar";
 import SnakeGame from "./pages/snake";
 import ParentsDashboard from "./pages/ParentsDashboard";
 
-const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
+const ProtectedRoute = ({ element }: { element: React.ReactElement }) => {
   const userRole = localStorage.getItem("userRole");
   return userRole ? element : <Navigate to="/role-selection" replace />;
 };

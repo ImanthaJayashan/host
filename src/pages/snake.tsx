@@ -68,6 +68,41 @@ const SnakeGame: React.FC = () => {
     }
   };
 
+  const saveTherapySessionToMongoDB = async (completedSession: any) => {
+    try {
+      const userId = localStorage.getItem("userId") || "guest";
+      const payload = {
+        userId,
+        gameTitle: completedSession.gameTitle || "Snake Game",
+        startTime:
+          completedSession.startTime ||
+          new Date(sessionStartTime.current).toISOString(),
+        endTime: completedSession.endTime,
+        duration: completedSession.duration,
+        durationMs: completedSession.durationMs,
+        score: completedSession.score,
+        fails: completedSession.fails,
+        foodsEaten: completedSession.foodsEaten,
+        completed: completedSession.completed,
+        route: completedSession.route,
+        icon: completedSession.icon,
+      };
+
+      const res = await fetch("/api/therapy/save-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const msg = await res.text();
+        console.error("Failed to save therapy session:", msg);
+      }
+    } catch (error) {
+      console.error("Error saving therapy session to MongoDB:", error);
+    }
+  };
+
   /* ---------------- Full Screen Resize ---------------- */
   useEffect(() => {
     const resize = () => {
@@ -83,7 +118,7 @@ const SnakeGame: React.FC = () => {
 
   /* ---------------- Food ---------------- */
   const generateFood = (snakeBody: Point[]) => {
-    let f;
+    let f: Point;
     do {
       f = {
         x: Math.floor(Math.random() * cols),

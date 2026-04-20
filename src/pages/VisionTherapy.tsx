@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const VisionTherapy: React.FC = () => {
   const navigate = useNavigate();
-  const [butterflyPositions, setButterflyPositions] = useState<Array<{ id: number; left: number; top: number }>>([]);
-  const [showGlasses, setShowGlasses] = useState(false);
 
   useEffect(() => {
-    setShowGlasses(true);
-    // Generate random butterfly positions
-    const butterflies = Array.from({ length: 6 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 80 + 10,
-      top: Math.random() * 30 + 20,
-    }));
-    setButterflyPositions(butterflies);
-
     // Initialize vision therapy data if not exists
     if (!localStorage.getItem('visionTherapySessions')) {
       localStorage.setItem('visionTherapySessions', JSON.stringify([]));
