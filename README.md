@@ -1,4 +1,4 @@
-# 🎨 E-Learning App - Kids Shape Learning Platform
+# 🎨 E-Learning App - Kids Shape Learning Platform.
 
 ## 📖 Project Overview
 
